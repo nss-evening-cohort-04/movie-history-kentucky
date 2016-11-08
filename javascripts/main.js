@@ -4,10 +4,22 @@ let uid = "";
 
 $(document).ready(function() {
 
+function putMoviesIntoDOM(){
+  FbAPI.getMovies(apiKeys, uid).then(function(movies){
+    movies.forEach(function(movie){
+      console.log(movie);
+    let movieToDom = movieHistor.searchMovieById(movie.movieId);
+    console.log(movieToDom);
+
+    });
+  });
+};
+
 $("#movie-search-btn").on("click", function() {
 	let userMovie = $("#user-movie").val().split(" ").join("+");
-	 movieHistor.getMovies(userMovie);
+	 movieHistor.searchMovieByName(userMovie);
 	 console.log("movie", userMovie);
+   putMoviesIntoDOM();
 });
 
 
@@ -17,7 +29,7 @@ $("#movie-search-btn").on("click", function() {
 			"uid": uid
 		};
 		FbAPI.addMovie(apiKeys, newMovie).then(function() {
-			
+
 		});
 	});
 
