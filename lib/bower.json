@@ -1,0 +1,17 @@
+{
+  "name": "movie-history",
+  "description": "movie history",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "https://github.com/nss-evening-cohort-04/movie-history-kentucky",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
