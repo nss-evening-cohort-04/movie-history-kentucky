@@ -10,6 +10,8 @@ $(document).ready(function() {
     firebase.initializeApp(apiKeys);
   });
 
+ movieHistor.getMovies();
+
 $("#registerButton").on('click', function(){
   let userName = $("#inputUsername").val();
   let user = {
