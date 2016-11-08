@@ -4,13 +4,51 @@ let uid = "";
 
 $(document).ready(function() {
 
+$("#movie-search-btn").on("click", function() {
+	let userMovie = $("#user-movie").val().split(" ").join("+");
+	 movieHistor.getMovies(userMovie);
+	 console.log("movie", userMovie);
+});
+
+
+	$("#add-movie-btn").on('click', function() {
+		let newMovie = {
+			"movieId": $("#addTaskText").val(),
+			"uid": uid
+		};
+		FbAPI.addMovie(apiKeys, newMovie).then(function() {
+			
+		});
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  FbAPI.firebaseCredentials().then(function(keys){
     console.log("keys", keys);
     apiKeys = keys;
     firebase.initializeApp(apiKeys);
   });
-
- movieHistor.getMovies();
 
 $("#registerButton").on('click', function(){
   let userName = $("#inputUsername").val();
@@ -26,8 +64,6 @@ $("#registerButton").on('click', function(){
     };
     return FbAPI.addUser(apiKeys, newUser);
   }).then(function(addUserResponse){
-
-
     return FbAPI.loginUser(user);
   }).then(function(loginResponse){
     uid = loginResponse.uid;
