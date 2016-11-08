@@ -1,8 +1,26 @@
 {
-  "user": {
-    "user1": {
-      "username": "tharry",
-      "uid": "12345678910"
-    }
-  }
+	"movies": {
+		"movie0": {
+			"movieId": "tt0251413",
+			"uid": "07TAuCZnPZgJmg469XGRPUNs84R2"
+		},
+		"movie1": {
+			"movieId": "tt0113497",
+			"uid": "g5iA2LZBvyfV5O1VcPB0eeJu46I2"
+		},
+		"movie2": {
+			"movieId": "tt0800369",
+			"uid": "g5iA2LZBvyfV5O1VcPB0eeJu46I2"
+		}
+	},
+	"users": {
+		"user1":{
+			"username": "a",
+			"uid":"07TAuCZnPZgJmg469XGRPUNs84R2"
+		},
+		"user2":{
+			"username": "b",
+			"uid": "g5iA2LZBvyfV5O1VcPB0eeJu46I2"
+		}
+	}
 }
