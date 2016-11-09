@@ -9,11 +9,7 @@ function putMoviesIntoDOM(){
   FbAPI.getMovies(apiKeys, uid).then(function(movies){
     movies.forEach(function(movie){
     movieHistor.searchMovieById(movie.movieId).then(function(movieReponse) {
-    $("#favorite-movies").append(`<div>`);
-    $("#favorite-movies").append(`<h3>${movieReponse.Title} (${movieReponse.Year})</h3>`);
-    $("#favorite-movies").append(`<img src="${movieReponse.Poster}"</div>`);
-    $("#favorite-movies").append(`</div>`);
-    $("#favorite-movies").append(`<button class="btn btn-lg btn-danger col-sm-3 delete-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Delete</button>`);
+    $("#favorite-movies").append(`<div class="col-md-4"><h3>${movieReponse.Title} (${movieReponse.Year})</h3><img src="${movieReponse.Poster}"><button class="btn btn-danger col-sm-1 btn-block delete-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Delete</button></div>`);
     })
     });
   });
@@ -103,7 +99,7 @@ $("#registerButton").on('click', function(){
     uid = loginResponse.uid;
     createLogoutButton();
     $("#login-container").addClass("hidden");
-    $("#main-app").removeClass("hidden");
+    $("#search-buttons").removeClass("hidden");
   });
 });
 
@@ -117,7 +113,7 @@ $("#loginButton").on('click', function(){
     createLogoutButton();
     putMoviesIntoDOM();
     $("#login-container").addClass("hidden");
-    $("#main-app").removeClass("hidden");
+    $("#search-buttons").removeClass("hidden");
 
   });
 });
@@ -135,5 +131,18 @@ function createLogoutButton() {
     $("#logout-container").append(logoutButton);
   });
 }
+
+$("#show-favorites").on('click', function(){
+  console.log("show faves");
+  $("#favorites-container").removeClass("hidden");
+  $("#user-search-container").addClass("hidden");
+  $("#user-search-results").addClass("hidden");
+});
+
+$("#show-search").on('click', function(){
+  $("#favorites-container").addClass("hidden");
+  $("#user-search-container").removeClass("hidden");
+  $("#user-search-results").removeClass("hidden");
+});
 
 });
