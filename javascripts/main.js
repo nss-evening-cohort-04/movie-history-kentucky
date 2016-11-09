@@ -8,10 +8,13 @@ $(document).ready(function() {
 function putMoviesIntoDOM(){
   FbAPI.getMovies(apiKeys, uid).then(function(movies){
     movies.forEach(function(movie){
-    let movieToDom = movieHistor.searchMovieById(movie.movieId);
-    console.log(movieToDom);
-
-   
+    movieHistor.searchMovieById(movie.movieId).then(function(movieReponse) {
+    $("#favorite-movies").append(`<div>`);
+    $("#favorite-movies").append(`<h3>${movieReponse.Title} (${movieReponse.Year})</h3>`);
+    $("#favorite-movies").append(`<img src="${movieReponse.Poster}"</div>`);
+    $("#favorite-movies").append(`</div>`);
+    $("#favorite-movies").append(`<button class="btn btn-lg btn-danger col-sm-3 delete-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Delete</button>`);
+    })
     });
   });
 }
@@ -25,7 +28,6 @@ $("#movie-search-btn").on("click", function() {
   userMovieHTML += `<img class="poster" src="${movie.Poster}">`;
   userMovieHTML += `</div>`;
   userMovieHTML += `<button class="btn btn-lg btn-success col-sm-2 add-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Add</button>`;
-  userMovieHTML += `<button class="btn btn-lg btn-danger col-sm-2 delete-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Delete</button>`;
   $("#searched-movie-output").append(userMovieHTML);
    });
   });
