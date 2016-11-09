@@ -10,6 +10,8 @@ function putMoviesIntoDOM(){
     movies.forEach(function(movie){
     let movieToDom = movieHistor.searchMovieById(movie.movieId);
     console.log(movieToDom);
+
+   
     });
   });
 }
@@ -31,18 +33,24 @@ $("#movie-search-btn").on("click", function() {
 
 
 $("#searched-movie-output").on('click', ".add-movie-btn", function() {
-    let newMovie = $(this).data("fbid");
+    let newMovie = {
+    	"isWatched": "no",
+    	"movieId": $(this).data("fbid"),
+    	"rating": 0,
+    	"uid": uid
+    };
 
     FbAPI.addMovie(apiKeys, firebaseId, newMovie).then(function() {
-    //console.log("move successfully added");
+    console.log("move successfully added");
     });
   });
 
 $("#searched-movie-output").on('click', ".delete-movie-btn", function() {
     let deleteMovie = $(this).data("fbid");
+    console.log("fbID", firebaseId);
 
     FbAPI.deleteMovie(apiKeys, firebaseId, deleteMovie).then(function() {
-    //console.log("move successfully removed");
+    console.log("move successfully removed");
     });
   });
 
@@ -119,6 +127,7 @@ function createLogoutButton() {
     $("#logout-container").html("");
     $("#logout-container").removeClass("hidden");
     firebaseId = userResponse.id;
+    console.log("usr", userResponse);
     let currentUserName = userResponse.username;
     let logoutButton = `<button class="btn btn-danger" id="logout-button">LOGOUT ${currentUserName}</button>`;
     $("#logout-container").append(logoutButton);

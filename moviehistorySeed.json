@@ -2,17 +2,46 @@
 	"users": {
 		"user1": {
 			"username": "a",
-			"uid": "07TAuCZnPZgJmg469XGRPUNs84R2",
-			"favorites": [
-				"tt0113497",
-				"tt0800369"
-			]
+			"uid": "07TAuCZnPZgJmg469XGRPUNs84R2"
 		},
 		"user2": {
 			"username": "b",
+			"uid": "g5iA2LZBvyfV5O1VcPB0eeJu46I2"
+		}
+	},
+	"favorites": {
+		"fav1": {
+			"movieId": "tt0251413",
+			"uid": "07TAuCZnPZgJmg469XGRPUNs84R2",
+			"rating": 0,
+			"isWatched": "no"
+		},
+		"fav2": {
+			"movieId": "tt0800369",
 			"uid": "g5iA2LZBvyfV5O1VcPB0eeJu46I2",
-			"favorites": [
-				"tt0251413"
+			"rating": 0,
+			"isWatched": "no"
+		}
+	},
+	"movies": {
+		"movie1": {
+			"movieId": "tt0251413",
+			"title": "Star Wars",
+			"year": 1983,
+			"actors": [
+				"Mark Hamill",
+				"Harrison Ford",
+				"Carrie Fisher"
+			]
+		},
+		"movie2": {
+			"movieId": "tt0800369",
+			"title": "Thor",
+			"year": 2011,
+			"actors": [
+				"Chris Hemsworth",
+				"Natalie Portland",
+				"Tom Hiddleston"
 			]
 		}
 	}
