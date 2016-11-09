@@ -4,7 +4,7 @@ var FbAPI = (function(oldFirebase) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'GET',
-                url:`${apiKeys.databaseURL}/movies.json?orderBy="uid"&equalTo="${uid}"`
+                url:`${apiKeys.databaseURL}/favorites.json?orderBy="uid"&equalTo="${uid}"`
             }).then((response) => {
                 let movies = [];
                 Object.keys(response).forEach(function(key) {
@@ -21,7 +21,7 @@ var FbAPI = (function(oldFirebase) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'POST',
-                url:`${apiKeys.databaseURL}/users/${firebaseId}/favorites.json`,
+                url:`${apiKeys.databaseURL}/favorites.json`,
                 data: JSON.stringify(newMovie),
                 dataType:'json'
             }).then((response) => {
@@ -36,7 +36,7 @@ var FbAPI = (function(oldFirebase) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'DELETE',
-                url:`${apiKeys.databaseURL}/users/${firebaseId}/favorites.json`,
+                url:`${apiKeys.databaseURL}/favorites/${movieId}.json`,
             }).then((response) => {
                 console.log("response from DELETE", response);
                 resolve(response);
