@@ -21,7 +21,7 @@ var movieHistor = (function() {
                     url: `http://www.omdbapi.com/?i=${movieId}&plot=short&r=json`
                 }).then((response) => {
                     resolve(response);
-                    console.log("response from api id call", response);
+                    //console.log("response from api id call", response);
                 }, (error) => {
                     reject(error);
                 });

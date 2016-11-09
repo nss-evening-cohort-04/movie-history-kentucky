@@ -32,7 +32,7 @@ var FbAPI = (function(oldFirebase) {
             });
         });
     };
-    oldFirebase.deleteMovie = function(apiKeys, firebaseId, movieId) {
+    oldFirebase.deleteMovie = function(apiKeys, movieId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'DELETE',
