@@ -17,12 +17,12 @@ var FbAPI = (function(oldFirebase) {
             });
         });
     };
-    oldFirebase.addMovie = function(apiKeys, newMovies) {
+    oldFirebase.addMovie = function(apiKeys, firebaseId, newMovie) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'POST',
-                url:`${apiKeys.databaseURL}/movies.json`,
-                data: JSON.stringify(newMovies),
+                url:`${apiKeys.databaseURL}/users/${firebaseId}/favorites.json`,
+                data: JSON.stringify(newMovie),
                 dataType:'json'
             }).then((response) => {
                 console.log("response from POST", response);
@@ -32,11 +32,11 @@ var FbAPI = (function(oldFirebase) {
             });
         });
     };
-    oldFirebase.deleteMovie = function(apiKeys, movieId) {
+    oldFirebase.deleteMovie = function(apiKeys, firebaseId, movieId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 method: 'DELETE',
-                url:`${apiKeys.databaseURL}/movies/${movieId}.json`
+                url:`${apiKeys.databaseURL}/users/${firebaseId}/favorites.json`,
             }).then((response) => {
                 console.log("response from DELETE", response);
                 resolve(response);
