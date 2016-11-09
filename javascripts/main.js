@@ -7,16 +7,17 @@ $(document).ready(function() {
 
 function putMoviesIntoDOM(){
   FbAPI.getMovies(apiKeys, uid).then(function(movies){
+    $("#favorite-movies").html("");
     movies.forEach(function(movie){
     movieHistor.searchMovieById(movie.movieId).then(function(movieReponse) {
-    $("#favorite-movies").append(`<div class="col-md-4"><h3>${movieReponse.Title} (${movieReponse.Year})</h3><img src="${movieReponse.Poster}"><button class="btn btn-danger col-sm-1 btn-block delete-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Delete</button></div>`);
+    $("#favorite-movies").append(`<div class="col-md-4"><h3>${movieReponse.Title} (${movieReponse.Year})</h3><img src="${movieReponse.Poster}"><h4>My Rating: ${movie.rating}</h4><button class="btn btn-danger col-sm-1 btn-block delete-movie-btn data-uid="${uid}" data-fbid="${movie.id}">Delete</button></div>`);
     })
     });
   });
 }
 
 $("#movie-search-btn").on("click", function() {
-  $("#searched-movie-output").html("");
+  $("#searched-movie").html("");
 	let userMovie = $("#user-movie").val().split(" ").join("+");
 	movieHistor.searchMovieByName(userMovie).then(function(movie){
   let userMovieHTML = `<div>`;
@@ -24,13 +25,13 @@ $("#movie-search-btn").on("click", function() {
   userMovieHTML += `<img class="poster" src="${movie.Poster}">`;
   userMovieHTML += `</div>`;
   userMovieHTML += `<button class="btn btn-lg btn-success col-sm-2 add-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Add</button>`;
-  $("#searched-movie-output").append(userMovieHTML);
+  $("#searched-movie").append(userMovieHTML);
    });
   });
 
 
 
-$("#searched-movie-output").on('click', ".add-movie-btn", function() {
+$("#user-search-results").on('click', ".add-movie-btn", function() {
     let newMovie = {
     	"isWatched": "no",
     	"movieId": $(this).data("fbid"),
@@ -39,16 +40,15 @@ $("#searched-movie-output").on('click', ".add-movie-btn", function() {
     };
 
     FbAPI.addMovie(apiKeys, firebaseId, newMovie).then(function() {
-    console.log("move successfully added");
+    putMoviesIntoDOM();
     });
   });
 
-$("#searched-movie-output").on('click', ".delete-movie-btn", function() {
-    let deleteMovie = $(this).data("fbid");
-    console.log("fbID", firebaseId);
+$("#favorites-container").on('click', ".delete-movie-btn", function() {
+    let movieId = $(this).data("fbid");
 
-    FbAPI.deleteMovie(apiKeys, firebaseId, deleteMovie).then(function() {
-    console.log("move successfully removed");
+    FbAPI.deleteMovie(apiKeys, movieId).then(function() {
+      putMoviesIntoDOM();
     });
   });
 
@@ -135,14 +135,14 @@ function createLogoutButton() {
 $("#show-favorites").on('click', function(){
   console.log("show faves");
   $("#favorites-container").removeClass("hidden");
-  $("#user-search-container").addClass("hidden");
   $("#user-search-results").addClass("hidden");
+  $("#search-bar").addClass("hidden");
 });
 
 $("#show-search").on('click', function(){
   $("#favorites-container").addClass("hidden");
-  $("#user-search-container").removeClass("hidden");
   $("#user-search-results").removeClass("hidden");
+  $("#search-bar").removeClass("hidden");
 });
 
 });
