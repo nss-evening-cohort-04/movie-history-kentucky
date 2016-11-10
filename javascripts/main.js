@@ -3,18 +3,40 @@ let apiKeys = {};
 let uid = "";
 let firebaseId = {};
 
+
+
 $(document).ready(function() {
+   	$('#example').barrating({
+        theme: 'fontawesome-stars'
+    	});
 
 function putMoviesIntoDOM(){
   FbAPI.getMovies(apiKeys, uid).then(function(movies){
     $("#favorite-movies").html("");
     movies.forEach(function(movie){
     movieHistor.searchMovieById(movie.movieId).then(function(movieReponse) {
-    $("#favorite-movies").append(`<div class="col-md-4"><h3>${movieReponse.Title} (${movieReponse.Year})</h3><img src="${movieReponse.Poster}"><h4>My Rating: ${movie.rating}</h4><button class="btn btn-danger col-sm-1 btn-block delete-movie-btn data-uid="${uid}" data-fbid="${movie.id}">Delete</button></div>`);
-    })
+    $("#favorite-movies").append(`
+    	<div class="col-md-4">
+    		<h3>${movieReponse.Title} (${movieReponse.Year})</h3>
+    			<img src="${movieReponse.Poster}">
+    			<h4>My Rating: ${movie.rating}</h4>
+				<select id="ratingSelect">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+    			</select>
+    		<button class="btn btn-danger col-sm-1 btn-block delete-movie-btn data-uid="${uid}" data-fbid="${movie.id}">Delete</button>
+    	</div>`);
+    });
     });
   });
 }
+
+$("select").change(function() {
+	console.log("hey");
+});
 
 $("#movie-search-btn").on("click", function() {
   $("#searched-movie").html("");
