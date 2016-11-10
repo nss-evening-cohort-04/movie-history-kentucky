@@ -1,3 +1,18 @@
 .hidden {
   display: none;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+}
+
+img {
+  width: 300px;
+  height: 443px;
+}
+
+.center {
+    margin:auto;
+}
