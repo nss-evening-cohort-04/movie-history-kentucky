@@ -24,19 +24,27 @@ function putMoviesIntoDOM(){
   });
 }
 
+
+$("#user-movie").keypress(function(e){
+        if(e.which == 13){
+            $("#movie-search-btn").click();
+        }
+});
+
 $("#movie-search-btn").on("click", function() {
   $("#searched-movie").html("");
 	let userMovie = $("#user-movie").val().split(" ").join("+");
-	movieHistor.searchMovieByName(userMovie).then(function(movie){
-  let userMovieHTML = `<div>`;
-  userMovieHTML += `<h3>${movie.Title} (${movie.Year})</h3>`;
-  userMovieHTML += `<img src="${movie.Poster}">`;
-  userMovieHTML += `<h4>My Rating</h4><select id="ratingSelect"><option value="1">1 Star</option><option value="2">2 Stars</option><option value="3">3 Stars</option><option value="4">4 Stars</option><option value="5">5 Stars</option></select>`;
-  userMovieHTML += `<h4>Seent it?<select id="seentIt"><option value="Yes">Yes</option><option value="No">No</option></select></h4>`;
-  userMovieHTML += `<h4>Actors: ${movie.Actors}</h4>`;
-  userMovieHTML += `<button class="btn btn-lg btn-success col-sm-1 col-sm-offset-1 add-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Add</button>`;
-  userMovieHTML += `</div>`;
-  $("#searched-movie").append(userMovieHTML);
+	movieHistor.searchMovieByName(userMovie).then(function(searchedMoviesResponse){
+  searchedMoviesResponse.forEach(function(movie){
+    $("#searched-movie").append(`
+      <div class="col-md-4 favorite-card">
+        <h3 class="center">${movie.Title} (${movie.Year})</h3>
+          <img class="center" src="${movie.Poster}">
+            <h4 class="center">My Rating</h4><select id="ratingSelect"><option value="1">1 Star</option><option value="2">2 Stars</option><option value="3">3 Stars</option><option value="4">4 Stars</option><option value="5">5 Stars</option></select>
+            <h4 class="center">Seent it?<select id="seentIt"><option value="Yes">Yes</option><option value="No">No</option></select></h4>
+          <button class="btn col-md-offset-1 btn-success col-md-6 add-movie-btn data-uid="${uid}" data-fbid="${movie.imdbID}">Add to favorites</button>
+      </div>`);
+});
    });
   });
 
@@ -117,7 +125,6 @@ function createLogoutButton() {
     $("#logout-container").html("");
     $("#logout-container").removeClass("hidden");
     firebaseId = userResponse.id;
-    console.log("usr", userResponse);
     let currentUserName = userResponse.username;
     let logoutButton = `<button class="btn btn-danger" id="logout-button">LOGOUT ${currentUserName}</button>`;
     $("#logout-container").append(logoutButton);
@@ -128,12 +135,14 @@ $("#show-favorites").on('click', function(){
   $("#favorites-container").removeClass("hidden");
   $("#user-search-results").addClass("hidden");
   $("#search-bar").addClass("hidden");
+  $("#searched-movie").hmtl("");
 });
 
 $("#show-search").on('click', function(){
   $("#favorites-container").addClass("hidden");
   $("#user-search-results").removeClass("hidden");
   $("#search-bar").removeClass("hidden");
+  $("#user-movie").focus();
 });
 
 

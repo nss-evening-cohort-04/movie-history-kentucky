@@ -5,16 +5,15 @@ var movieHistor = (function() {
             return new Promise((resolve, reject) => {
                 $.ajax({
                     method: 'GET',
-                    url: `http://www.omdbapi.com/?t="${userMovie}"&y=&plot=short&r=json`
+                    url: 'https://www.omdbapi.com/?s=' + userMovie
                 }).then((response) => {
-                    resolve(response);
+                    resolve(response.Search);
                 }, (error) => {
                     reject(error);
                 });
             });
         },
         searchMovieById: function(movieId) {
-            console.log(movieId);
             return new Promise((resolve, reject) => {
                 $.ajax({
                     method: 'GET',
